@@ -124,3 +124,13 @@ button:hover {
 .remove-button:hover {
   background-color: #c82333;
 }
+
+.chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.chart-container canvas {
+  margin: 10px;
+}

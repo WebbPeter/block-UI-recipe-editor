@@ -4,6 +4,7 @@ document.getElementById('renderButton').addEventListener('click', function() {
     const jsonData = JSON.parse(jsonInput);
     const formattedJson = renderRecipe(jsonData);
     document.getElementById('output').innerHTML = formattedJson;
+    renderTimelines(jsonData);
   } catch (error) {
     document.getElementById('output').innerHTML = 'Invalid JSON';
   }
@@ -112,6 +113,95 @@ document.getElementById('output').addEventListener('click', function(event) {
     document.getElementById('renderButton').click();
   }
 });
+
+function renderTimelines(recipe) {
+  const settingsKeys = ['circulation_fan', 'temperature', 'pump_amount', 'light_intensity'];
+  settingsKeys.forEach(key => {
+    const ctx = document.getElementById(`${key}Chart`).getContext('2d');
+    const data = prepareChartData(recipe, key);
+    createChart(ctx, data, key);
+  });
+}
+
+function prepareChartData(recipe, key) {
+  const data = {
+    labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+    datasets: []
+  };
+
+  const settingsData = [];
+  recipe.phases.forEach((phase, phaseIndex) => {
+    phase.step.forEach((step, stepIndex) => {
+      if (step[key]) {
+        step[key].forEach(setting => {
+          const hour = setting.start_time[0];
+          const minute = setting.start_time[1];
+          settingsData.push({ x: hour + minute / 60, y: phaseIndex + stepIndex / 10 });
+        });
+      }
+    });
+  });
+
+  data.datasets.push({
+    label: key,
+    data: settingsData,
+    backgroundColor: getColorForKey(key),
+    borderColor: getColorForKey(key),
+    borderWidth: 1,
+    pointRadius: 5,
+    pointHoverRadius: 7
+  });
+
+  return data;
+}
+
+function createChart(ctx, data, key) {
+  new Chart(ctx, {
+    type: 'scatter',
+    data: data,
+    options: {
+      scales: {
+        x: {
+          type: 'linear',
+          position: 'bottom',
+          min: 0,
+          max: 24,
+          title: {
+            display: true,
+            text: 'Time (hours)'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: capitalizeFirstLetter(key)
+          },
+          ticks: {
+            callback: function(value, index, values) {
+              const settingsKeys = ['Circulation Fan', 'Temperature', 'Pump Amount', 'Light Intensity'];
+              return settingsKeys[Math.floor(value)];
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function getColorForKey(key) {
+  switch (key) {
+    case 'circulation_fan':
+      return 'red';
+    case 'temperature':
+      return 'blue';
+    case 'pump_amount':
+      return 'green';
+    case 'light_intensity':
+      return 'orange';
+    default:
+      return 'gray';
+  }
+}
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

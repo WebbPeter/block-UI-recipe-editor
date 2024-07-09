@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recipe JSON Viewer and Editor</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div id="app">
@@ -17,6 +18,12 @@
       <input type="text" id="fileNameInput" placeholder="Enter file name" />
     </div>
     <div id="output"></div>
+    <div class="chart-container">
+      <canvas id="circulation_fanChart" width="400" height="200"></canvas>
+      <canvas id="temperatureChart" width="400" height="200"></canvas>
+      <canvas id="pump_amountChart" width="400" height="200"></canvas>
+      <canvas id="light_intensityChart" width="400" height="200"></canvas>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
