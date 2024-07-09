@@ -86,3 +86,41 @@ button:hover {
   border-radius: 4px;
   background-color: #f9f9f9;
 }
+
+/* Color coding for different settings */
+.circulation-fan {
+  border: 2px solid red;
+}
+
+.temperature {
+  border: 2px solid blue;
+}
+
+.pump-amount {
+  border: 2px solid green;
+}
+
+.light-intensity {
+  border: 2px solid orange;
+}
+
+.add-button, .remove-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.add-button:hover, .remove-button:hover {
+  background-color: #218838;
+}
+
+.remove-button {
+  background-color: #dc3545;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}
