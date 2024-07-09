@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>MARSfarm JSON Editor</title>
-    <script type="text/javascript" src="blockly_compressed.js"></script>
-    <script type="text/javascript" src="msg/js/en.js"></script>
-    <script type="text/javascript" src="field_textbutton.js"></script>
-    <script type="text/javascript" src="menuly_override.js"></script>
-    <script type="text/javascript" src="menuly_blocks.js"></script>
-    <script type="text/javascript" src="menuly_codegen.js"></script>
-    <script type="text/javascript" src="menuly_2blocks.js"></script>
+    <script src="blockly_compressed.js"></script>
+    <script src="msg/js/en.js"></script>
+    <script src="field_textbutton.js"></script>
+    <script src="menuly_override.js"></script>
+    <script src="menuly_blocks.js"></script>
+    <script src="menuly_codegen.js"></script>
+    <script src="menuly_2blocks.js"></script>
+    <script src="script.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    </style>
+    <style>
+        /* Include the CSS defined below here */
+    </style>
     <script>
         function updateJSONarea() {
             document.getElementById('json_area').value = Blockly.JSON.fromWorkspace(Blockly.getMainWorkspace());
@@ -19,67 +26,6 @@
             Blockly.JSON.toWorkspace(document.getElementById('json_area').value, Blockly.getMainWorkspace());
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #1c1c1c;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            margin: 0;
-        }
-        h1 {
-            font-size: 2em;
-            color: #f9a825;
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px;
-            padding: 20px;
-            background: #2c2c2c;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #f9a825;
-            color: #000;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #c17900;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background-color: #333;
-            color: #fff;
-            font-family: monospace;
-        }
-        #blocklyDiv {
-            height: 600px;
-            width: 100%;
-        }
-        #toolbox {
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -90,7 +36,7 @@
         </div>
         <textarea id="json_area" placeholder="Paste your JSON here"></textarea>
         <div id="blocklyDiv"></div>
-        <xml id="toolbox">
+        <xml id="toolbox" style="display: none;">
             <block type="dictionary"></block>
             <block type="array"></block>
             <block type="number"></block>
