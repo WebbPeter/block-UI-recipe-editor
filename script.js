@@ -188,7 +188,6 @@ function createChart(ctx, data, key) {
           max: 24,
           title: {
             display: true,
-
             text: 'Time (hours)'
           }
         },
@@ -221,14 +220,14 @@ function createChart(ctx, data, key) {
             }
           }
         }
+      }
+    },
+    elements: {
+      line: {
+        tension: 0.4 // smooth lines
       },
-      elements: {
-        line: {
-          tension: 0.4 // smooth lines
-        },
-        point: {
-          radius: 0 // no points on the line
-        }
+      point: {
+        radius: 0 // no points on the line
       }
     }
   });

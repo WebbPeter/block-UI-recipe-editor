@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe JSON Viewer and Editor</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe JSON Viewer and Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div id="app">
-    <h1>Recipe JSON Viewer and Editor</h1>
-    <textarea id="jsonInput" placeholder="Paste your JSON here"></textarea>
-    <div class="button-container">
-      <button id="renderButton">Render Recipe</button>
-      <button id="saveButton">Save JSON</button>
-      <button id="downloadButton">Download JSON</button>
-      <input type="text" id="fileNameInput" placeholder="Enter file name" />
+    <div id="app">
+        <h1>Recipe JSON Viewer and Editor</h1>
+        <textarea id="jsonInput" placeholder="Paste your JSON here"></textarea>
+        <div class="button-container">
+            <button id="renderButton">Render Recipe</button>
+            <button id="saveButton">Save JSON</button>
+            <button id="downloadButton">Download JSON</button>
+            <input type="text" id="fileNameInput" placeholder="Enter file name" />
+        </div>
+        <div id="output"></div>
+        <div class="chart-container">
+            <canvas id="circulation_fanChart" width="400" height="200"></canvas>
+            <canvas id="temperatureChart" width="400" height="200"></canvas>
+            <canvas id="pump_amountChart" width="400" height="200"></canvas>
+            <canvas id="light_intensityChart" width="400" height="200"></canvas>
+        </div>
     </div>
-    <div id="output"></div>
-    <div class="chart-container">
-      <canvas id="circulation_fanChart" width="400" height="200"></canvas>
-      <canvas id="temperatureChart" width="400" height="200"></canvas>
-      <canvas id="pump_amountChart" width="400" height="200"></canvas>
-      <canvas id="light_intensityChart" width="400" height="200"></canvas>
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
