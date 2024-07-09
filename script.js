@@ -130,17 +130,34 @@ function prepareChartData(recipe, key) {
   };
 
   const settingsData = [];
+  let lastSetting = null;
+  let lastTime = 0;
+
   recipe.phases.forEach((phase, phaseIndex) => {
     phase.step.forEach((step, stepIndex) => {
       if (step[key]) {
         step[key].forEach(setting => {
           const hour = setting.start_time[0];
           const minute = setting.start_time[1];
-          settingsData.push({ x: hour + minute / 60, y: phaseIndex + stepIndex / 10 });
+          const time = hour + minute / 60;
+
+          if (lastSetting !== null && lastTime !== time) {
+            settingsData.push({ x: lastTime, y: lastSetting });
+            settingsData.push({ x: time, y: lastSetting });
+          }
+
+          settingsData.push({ x: time, y: setting.setting });
+          lastSetting = setting.setting;
+          lastTime = time;
         });
       }
     });
   });
+
+  if (lastSetting !== null) {
+    settingsData.push({ x: lastTime, y: lastSetting });
+    settingsData.push({ x: 24, y: lastSetting });
+  }
 
   data.datasets.push({
     label: key,
@@ -149,15 +166,18 @@ function prepareChartData(recipe, key) {
     borderColor: getColorForKey(key),
     borderWidth: 1,
     pointRadius: 5,
-    pointHoverRadius: 7
+    pointHoverRadius: 7,
+    fill: true
   });
 
   return data;
 }
 
 function createChart(ctx, data, key) {
+  const chartType = key === 'pump_amount' ? 'bar' : 'line';
+
   new Chart(ctx, {
-    type: 'scatter',
+    type: chartType,
     data: data,
     options: {
       scales: {
@@ -168,6 +188,7 @@ function createChart(ctx, data, key) {
           max: 24,
           title: {
             display: true,
+
             text: 'Time (hours)'
           }
         },
@@ -178,10 +199,35 @@ function createChart(ctx, data, key) {
           },
           ticks: {
             callback: function(value, index, values) {
-              const settingsKeys = ['Circulation Fan', 'Temperature', 'Pump Amount', 'Light Intensity'];
-              return settingsKeys[Math.floor(value)];
+              if (key === 'pump_amount') {
+                return `${value} ml`;
+              }
+              return value;
+            }
+          },
+          stacked: key === 'light_intensity'
+        }
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              if (key === 'pump_amount') {
+                return `Time: ${context.parsed.x}, Amount: ${context.parsed.y} ml`;
+              } else if (key === 'light_intensity') {
+                return `Time: ${context.parsed.x}, Intensity: ${context.parsed.y}`;
+              }
+              return `Time: ${context.parsed.x}, Setting: ${context.parsed.y}`;
             }
           }
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4 // smooth lines
+        },
+        point: {
+          radius: 0 // no points on the line
         }
       }
     }
@@ -191,13 +237,13 @@ function createChart(ctx, data, key) {
 function getColorForKey(key) {
   switch (key) {
     case 'circulation_fan':
-      return 'red';
+      return 'rgba(255, 0, 0, 0.6)'; // red
     case 'temperature':
-      return 'blue';
+      return 'rgba(0, 0, 255, 0.6)'; // blue
     case 'pump_amount':
-      return 'green';
+      return 'rgba(0, 255, 0, 0.6)'; // green
     case 'light_intensity':
-      return 'orange';
+      return 'rgba(255, 165, 0, 0.6)'; // orange
     default:
       return 'gray';
   }
