@@ -2,53 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MARSfarm JSON Editor</title>
-    <script src="blockly_compressed.js"></script>
-    <script src="msg/js/en.js"></script>
-    <script src="field_textbutton.js"></script>
-    <script src="menuly_override.js"></script>
-    <script src="menuly_blocks.js"></script>
-    <script src="menuly_codegen.js"></script>
-    <script src="menuly_2blocks.js"></script>
-    <script src="script.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-    </style>
-    <style>
-        /* Include the CSS defined below here */
-    </style>
-    <script>
-        function updateJSONarea() {
-            document.getElementById('json_area').value = Blockly.JSON.fromWorkspace(Blockly.getMainWorkspace());
-        }
-
-        function interpretJSONarea() {
-            Blockly.JSON.toWorkspace(document.getElementById('json_area').value, Blockly.getMainWorkspace());
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe JSON Editor with Scratch Blocks</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="node_modules/scratch-blocks/dist/scratch_blocks_compressed.js"></script>
+    <script src="node_modules/scratch-blocks/dist/msg/scratch_msgs.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>MARSfarm JSON Editor</h1>
+    <div id="app">
+        <h1>Recipe JSON Editor with Scratch Blocks</h1>
+        <textarea id="jsonInput" placeholder="Paste your JSON here"></textarea>
         <div class="button-container">
-            <button onclick="interpretJSONarea()">Interpret JSON</button>
-            <button onclick="updateJSONarea()">Update JSON</button>
+            <button id="loadButton">Load JSON</button>
+            <input type="file" id="fileInput">
+            <button id="renderButton">Render Recipe</button>
+            <button id="saveButton">Save JSON</button>
+            <button id="downloadButton">Download JSON</button>
+            <input type="text" id="fileNameInput" placeholder="Enter file name" />
         </div>
-        <textarea id="json_area" placeholder="Paste your JSON here"></textarea>
         <div id="blocklyDiv"></div>
-        <xml id="toolbox" style="display: none;">
-            <block type="dictionary"></block>
-            <block type="array"></block>
-            <block type="number"></block>
-            <block type="string"></block>
-            <block type="true"></block>
-            <block type="false"></block>
+        <xml id="toolbox" style="display: none">
+            <category name="JSON">
+                <block type="json_object"></block>
+                <block type="json_property"></block>
+                <block type="json_value"></block>
+            </category>
         </xml>
+        <div id="output"></div>
     </div>
-    <script>
-        Blockly.inject(document.getElementById('blocklyDiv'), {
-            toolbox: document.getElementById('toolbox')
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
