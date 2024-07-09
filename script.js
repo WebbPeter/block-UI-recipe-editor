@@ -113,14 +113,4 @@ document.addEventListener('DOMContentLoaded', function() {
           return null;
       }
   }
-
-  document.getElementById('fileInput').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const json = JSON.parse(e.target.result);
-          document.getElementById('jsonInput').value = JSON.stringify(json, null, 2);
-      };
-      reader.readAsText(file);
-  });
 });
