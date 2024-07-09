@@ -7,6 +7,7 @@ body {
   height: 100vh;
   margin: 0;
   background-color: #f0f0f0;
+  padding-top: 20px; /* Add padding to the top */
 }
 
 #app {
