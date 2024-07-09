@@ -8,9 +8,14 @@
 </head>
 <body>
   <div id="app">
-    <h1>Recipe JSON Viewer</h1>
+    <h1>Recipe JSON Viewer and Editor</h1>
     <textarea id="jsonInput" placeholder="Paste your JSON here"></textarea>
-    <button id="renderButton">Render Recipe</button>
+    <div class="button-container">
+      <button id="renderButton">Render Recipe</button>
+      <button id="saveButton">Save JSON</button>
+      <button id="downloadButton">Download JSON</button>
+      <input type="text" id="fileNameInput" placeholder="Enter file name" />
+    </div>
     <div id="output"></div>
   </div>
   <script src="script.js"></script>

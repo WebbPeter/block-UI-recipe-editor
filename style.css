@@ -29,6 +29,13 @@ body {
   font-family: monospace;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -40,6 +47,13 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+#fileNameInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
 }
 
 #output {
